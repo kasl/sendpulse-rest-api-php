@@ -1,342 +1,342 @@
 <?php
 
-    /*
-     * Interface for SendPulse REST API
+/*
+ * Interface for SendPulse REST API
+ *
+ * Documentation
+ * https://login.sendpulse.com/manual/rest-api/
+ * https://sendpulse.com/api
+ *
+ */
+
+interface SendpulseApi_Interface
+{
+    /**
+     * Create new address book
      *
-     * Documentation
-     * https://login.sendpulse.com/manual/rest-api/
-     * https://sendpulse.com/api
-     *
+     * @param $bookName
      */
+    public function createAddressBook($bookName);
 
-    interface SendpulseApi_Interface {
+    /**
+     * Edit address book name
+     *
+     * @param $id
+     * @param $newName
+     */
+    public function editAddressBook($id, $newName);
 
-        /**
-         * Create new address book
-         *
-         * @param $bookName
-         */
-        public function createAddressBook( $bookName );
+    /**
+     * Remove address book
+     *
+     * @param $id
+     */
+    public function removeAddressBook($id);
 
-        /**
-         * Edit address book name
-         *
-         * @param $id
-         * @param $newName
-         */
-        public function editAddressBook( $id, $newName );
+    /**
+     * Get list of address books
+     *
+     * @param $limit
+     * @param $offset
+     */
+    public function listAddressBooks($limit = null, $offset = null);
 
-        /**
-         * Remove address book
-         *
-         * @param $id
-         */
-        public function removeAddressBook( $id );
+    /**
+     * Get book info
+     *
+     * @param $id
+     */
+    public function getBookInfo($id);
 
-        /**
-         * Get list of address books
-         *
-         * @param $limit
-         * @param $offset
-         */
-        public function listAddressBooks( $limit = NULL, $offset = NULL );
+    /**
+     * Get list pf emails from book
+     *
+     * @param $id
+     */
+    public function getEmailsFromBook($id);
 
-        /**
-         * Get book info
-         *
-         * @param $id
-         */
-        public function getBookInfo( $id );
+    /**
+     * Add new emails to book
+     *
+     * @param $bookId
+     * @param $emails
+     */
+    public function addEmails($bookId, $emails);
 
-        /**
-         * Get list pf emails from book
-         *
-         * @param $id
-         */
-        public function getEmailsFromBook( $id );
+    /**
+     * Remove emails from book
+     *
+     * @param $bookId
+     * @param $emails
+     */
+    public function removeEmails($bookId, $emails);
 
-        /**
-         * Add new emails to book
-         *
-         * @param $bookId
-         * @param $emails
-         */
-        public function addEmails( $bookId, $emails );
+    /**
+     * Get information about email from book
+     *
+     * @param $bookId
+     * @param $email
+     */
+    public function getEmailInfo($bookId, $email);
 
-        /**
-         * Remove emails from book
-         *
-         * @param $bookId
-         * @param $emails
-         */
-        public function removeEmails( $bookId, $emails );
+    /**
+     * Calculate cost of the campaign based on address book
+     *
+     * @param $bookId
+     */
+    public function campaignCost($bookId);
 
-        /**
-         * Get information about email from book
-         *
-         * @param $bookId
-         * @param $email
-         */
-        public function getEmailInfo( $bookId, $email );
+    /**
+     * Get list of campaigns
+     *
+     * @param $limit
+     * @param $offset
+     */
+    public function listCampaigns($limit = null, $offset = null);
 
-        /**
-         * Calculate cost of the campaign based on address book
-         *
-         * @param $bookId
-         */
-        public function campaignCost( $bookId );
+    /**
+     * Get information about campaign
+     *
+     * @param $id
+     */
+    public function getCampaignInfo($id);
 
-        /**
-         * Get list of campaigns
-         *
-         * @param $limit
-         * @param $offset
-         */
-        public function listCampaigns( $limit = NULL, $offset = NULL );
+    /**
+     * Get campaign statistic by countries
+     *
+     * @param $id
+     */
+    public function campaignStatByCountries($id);
 
-        /**
-         * Get information about campaign
-         *
-         * @param $id
-         */
-        public function getCampaignInfo( $id );
+    /**
+     * Get campaign statistic by referrals
+     *
+     * @param $id
+     */
+    public function campaignStatByReferrals($id);
 
-        /**
-         * Get campaign statistic by countries
-         *
-         * @param $id
-         */
-        public function campaignStatByCountries( $id );
+    /**
+     * Create new campaign
+     *
+     * @param $senderName
+     * @param $senderEmail
+     * @param $subject
+     * @param $body
+     * @param $bookId
+     * @param null $name
+     * @param null $attachments
+     */
+    public function createCampaign($senderName, $senderEmail, $subject, $body, $bookId, $name = null, $attachments = null);
 
-        /**
-         * Get campaign statistic by referrals
-         *
-         * @param $id
-         */
-        public function campaignStatByReferrals( $id );
+    /**
+     * Cancel campaign
+     *
+     * @param $id
+     */
+    public function cancelCampaign($id);
 
-        /**
-         * Create new campaign
-         *
-         * @param $senderName
-         * @param $senderEmail
-         * @param $subject
-         * @param $body
-         * @param $bookId
-         * @param null $name
-         * @param null $attachments
-         */
-        public function createCampaign( $senderName, $senderEmail, $subject, $body, $bookId, $name = NULL, $attachments = NULL );
+    /**
+     * Get list of allowed senders
+     */
+    public function listSenders();
 
-        /**
-         * Cancel campaign
-         *
-         * @param $id
-         */
-        public function cancelCampaign( $id );
+    /**
+     * Add new sender
+     *
+     * @param $senderName
+     * @param $senderEmail
+     */
+    public function addSender($senderName, $senderEmail);
 
-        /**
-         * Get list of allowed senders
-         */
-        public function listSenders();
+    /**
+     * Remove sender
+     *
+     * @param $email
+     */
+    public function removeSender($email);
 
-        /**
-         * Add new sender
-         *
-         * @param $senderName
-         * @param $senderEmail
-         */
-        public function addSender( $senderName, $senderEmail );
+    /**
+     * Activate sender using code from mail
+     *
+     * @param $email
+     * @param $code
+     */
+    public function activateSender($email, $code);
 
-        /**
-         * Remove sender
-         *
-         * @param $email
-         */
-        public function removeSender( $email );
+    /**
+     * Send mail with activation code on sender email
+     *
+     * @param $email
+     */
+    public function getSenderActivationMail($email);
 
-        /**
-         * Activate sender using code from mail
-         *
-         * @param $email
-         * @param $code
-         */
-        public function activateSender( $email, $code );
+    /**
+     * Get global information about email
+     *
+     * @param $email
+     */
+    public function getEmailGlobalInfo($email);
 
-        /**
-         * Send mail with activation code on sender email
-         *
-         * @param $email
-         */
-        public function getSenderActivationMail( $email );
+    /**
+     * Remove email address from all books
+     *
+     * @param $email
+     */
+    public function removeEmailFromAllBooks($email);
 
-        /**
-         * Get global information about email
-         *
-         * @param $email
-         */
-        public function getEmailGlobalInfo( $email );
+    /**
+     * Get statistic for email by all campaigns
+     *
+     * @param $email
+     */
+    public function emailStatByCampaigns($email);
 
-        /**
-         * Remove email address from all books
-         *
-         * @param $email
-         */
-        public function removeEmailFromAllBooks( $email );
+    /**
+     * Show emails from blacklist
+     */
+    public function getBlackList();
 
-        /**
-         * Get statistic for email by all campaigns
-         *
-         * @param $email
-         */
-        public function emailStatByCampaigns( $email );
+    /**
+     * Add email address to blacklist
+     *
+     * @param $emails
+     * @param null $comment
+     */
+    public function addToBlackList($emails, $comment = null);
 
-        /**
-         * Show emails from blacklist
-         */
-        public function getBlackList();
+    /**
+     * Remove email address from blacklist
+     *
+     * @param $emails
+     */
+    public function removeFromBlackList($emails);
 
-        /**
-         * Add email address to blacklist
-         *
-         * @param $emails
-         * @param null $comment
-         */
-        public function addToBlackList( $emails, $comment = NULL );
+    /**
+     * Return user balance
+     *
+     * @param string $currency
+     */
+    public function getBalance($currency = '');
 
-        /**
-         * Remove email address from blacklist
-         *
-         * @param $emails
-         */
-        public function removeFromBlackList( $emails );
+    /**
+     * Get list of emails that was sent by SMTP
+     *
+     * @param int $limit
+     * @param int $offset
+     * @param string $fromDate
+     * @param string $toDate
+     * @param string $sender
+     * @param string $recipient
+     */
+    public function smtpListEmails($limit = 0, $offset = 0, $fromDate = '', $toDate = '', $sender = '', $recipient = '');
 
-        /**
-         * Return user balance
-         *
-         * @param string $currency
-         */
-        public function getBalance( $currency = '' );
+    /**
+     * Get information about email by his id
+     *
+     * @param $id
+     */
+    public function smtpGetEmailInfoById($id);
 
-        /**
-         * Get list of emails that was sent by SMTP
-         *
-         * @param int $limit
-         * @param int $offset
-         * @param string $fromDate
-         * @param string $toDate
-         * @param string $sender
-         * @param string $recipient
-         */
-        public function smtpListEmails( $limit = 0, $offset = 0, $fromDate = '', $toDate = '', $sender = '', $recipient = '' );
+    /**
+     * Unsubscribe emails using SMTP
+     *
+     * @param $emails
+     */
+    public function smtpUnsubscribeEmails($emails);
 
-        /**
-         * Get information about email by his id
-         *
-         * @param $id
-         */
-        public function smtpGetEmailInfoById( $id );
+    /**
+     * Remove emails from unsubscribe list using SMTP
+     *
+     * @param $emails
+     */
+    public function smtpRemoveFromUnsubscribe($emails);
 
-        /**
-         * Unsubscribe emails using SMTP
-         *
-         * @param $emails
-         */
-        public function smtpUnsubscribeEmails( $emails );
+    /**
+     * Get list of allowed IPs using SMTP
+     */
+    public function smtpListIP();
 
-        /**
-         * Remove emails from unsubscribe list using SMTP
-         *
-         * @param $emails
-         */
-        public function smtpRemoveFromUnsubscribe( $emails );
+    /**
+     * Get list of allowed domains using SMTP
+     */
+    public function smtpListAllowedDomains();
 
-        /**
-         * Get list of allowed IPs using SMTP
-         */
-        public function smtpListIP();
+    /**
+     * Add domain using SMTP
+     *
+     * @param $email
+     */
+    public function smtpAddDomain($email);
 
-        /**
-         * Get list of allowed domains using SMTP
-         */
-        public function smtpListAllowedDomains();
+    /**
+     * Send confirm mail to verify new domain
+     *
+     * @param $email
+     */
+    public function smtpVerifyDomain($email);
 
-        /**
-         * Add domain using SMTP
-         *
-         * @param $email
-         */
-        public function smtpAddDomain( $email );
+    /**
+     * Send mail using SMTP
+     *
+     * @param $email
+     */
+    public function smtpSendMail($email);
 
-        /**
-         * Send confirm mail to verify new domain
-         *
-         * @param $email
-         */
-        public function smtpVerifyDomain( $email );
+    /**
+     * Get list of all push campaigns
+     *
+     * @param null $limit
+     * @param null $offset
+     */
+    public function pushListCampaigns($limit = null, $offset = null);
 
-        /**
-         * Send mail using SMTP
-         *
-         * @param $email
-         */
-        public function smtpSendMail( $email );
+    /**
+     * Get list of websites
+     *
+     * @param null $limit
+     * @param null $offset
+     */
+    public function pushListWebsites($limit = null, $offset = null);
 
-        /**
-         * Get list of all push campaigns
-         *
-         * @param null $limit
-         * @param null $offset
-         */
-        public function pushListCampaigns( $limit = NULL, $offset = NULL );
+    /**
+     * Get amount of websites
+     */
+    public function pushCountWebsites();
 
-        /**
-         * Get list of websites
-         *
-         * @param null $limit
-         * @param null $offset
-         */
-        public function pushListWebsites( $limit = NULL, $offset = NULL );
+    /**
+     * Get list of all variables for the website
+     *
+     * @param $websiteId
+     */
+    public function pushListWebsiteVariables($websiteId);
 
-        /**
-         * Get amount of websites
-         */
-        public function pushCountWebsites();
+    /**
+     * Get list of all subscriptions for the website
+     *
+     * @param $websiteId
+     */
+    public function pushListWebsiteSubscriptions($websiteId, $limit = null, $offset = null);
 
-        /**
-         * Get list of all variables for the website
-         *
-         * @param $websiteId
-         */
-        public function pushListWebsiteVariables( $websiteId );
+    /**
+     * Get amount of subscriptions for the site
+     *
+     * @param $websiteId
+     */
+    public function pushCountWebsiteSubscriptions($websiteId);
 
-        /**
-         * Get list of all subscriptions for the website
-         *
-         * @param $websiteId
-         */
-        public function pushListWebsiteSubscriptions( $websiteId, $limit = NULL, $offset = NULL );
+    /**
+     * Set state for subscription
+     *
+     * @param $subscriptionId
+     * @param $stateValue
+     */
+    public function pushSetSubscriptionState($subscriptionId, $stateValue);
 
-        /**
-         * Get amount of subscriptions for the site
-         *
-         * @param $websiteId
-         */
-        public function pushCountWebsiteSubscriptions( $websiteId );
-
-        /**
-         * Set state for subscription
-         *
-         * @param $subscriptionId
-         * @param $stateValue
-         */
-        public function pushSetSubscriptionState( $subscriptionId, $stateValue );
-
-        /**
-         * Create new push campaign
-         *
-         * @param $taskInfo
-         * @param array $additionalParams
-         */
-        public function createPushTask( $taskInfo, $additionalParams = array() );
-    }
+    /**
+     * Create new push campaign
+     *
+     * @param $taskInfo
+     * @param array $additionalParams
+     */
+    public function createPushTask($taskInfo, $additionalParams = array());
+}
