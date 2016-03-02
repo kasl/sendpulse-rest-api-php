@@ -11,7 +11,7 @@ namespace Kasl\SendPulse;
  * https://sendpulse.com/api
  *
  */
-interface SendpulseApi_Interface
+interface SendpulseApiInterface
 {
     /**
      * Create new address book
