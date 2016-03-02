@@ -39,12 +39,12 @@ class ApiClient implements ApiInterface
      *        Define where script will save access token
      *        Types: session, file, memcache
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct($userId, $secret, $storageType = 'file')
     {
         if (empty($userId) || empty($secret)) {
-            throw new Exception('Empty ID or SECRET');
+            throw new \Exception('Empty ID or SECRET');
         }
 
         $this->userId = $userId;
@@ -59,7 +59,7 @@ class ApiClient implements ApiInterface
                 }
                 break;
             case 'memcache':
-                $memcache = new Memcache();
+                $memcache = new \Memcache();
                 $memcache->connect('localhost', 11211) or die('Could not connect to Memcache');
                 $token = $memcache->get($hashName);
                 if (!empty($token)) {
@@ -75,7 +75,7 @@ class ApiClient implements ApiInterface
 
         if (empty($this->token)) {
             if (!$this->getToken()) {
-                throw new Exception('Could not connect to api, check your ID and SECRET');
+                throw new \Exception('Could not connect to api, check your ID and SECRET');
             }
         }
     }
@@ -108,7 +108,7 @@ class ApiClient implements ApiInterface
                 $_SESSION[$hashName] = $this->token;
                 break;
             case 'memcache':
-                $memcache = new Memcache();
+                $memcache = new \Memcache();
                 $memcache->connect('localhost', 11211) or die('Could not connect to Memcache');
                 $memcache->set($hashName, $this->token, false, 3600);
                 break;
@@ -179,7 +179,7 @@ class ApiClient implements ApiInterface
             $this->getToken();
             $return = $this->sendRequest($path, $method, $data);
         } else {
-            $return = new stdClass();
+            $return = new \stdClass();
             $return->data = json_decode($responseBody);
             $return->http_code = $headerCode;
         }
@@ -197,7 +197,7 @@ class ApiClient implements ApiInterface
     private function handleResult($data)
     {
         if (empty($data->data)) {
-            $data->data = new stdClass();
+            $data->data = new \stdClass();
         }
         if ($data->http_code != 200) {
             $data->data->is_error = true;
@@ -216,7 +216,7 @@ class ApiClient implements ApiInterface
      */
     private function handleError($customMessage = null)
     {
-        $message = new stdClass();
+        $message = new \stdClass();
         $message->is_error = true;
         if (!is_null($customMessage)) {
             $message->message = $customMessage;
@@ -236,7 +236,7 @@ class ApiClient implements ApiInterface
      *
      * @param $bookName
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function createAddressBook($bookName)
     {
@@ -256,7 +256,7 @@ class ApiClient implements ApiInterface
      * @param $id
      * @param $newName
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function editAddressBook($id, $newName)
     {
@@ -275,7 +275,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function removeAddressBook($id)
     {
@@ -316,7 +316,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function getBookInfo($id)
     {
@@ -334,7 +334,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function getEmailsFromBook($id)
     {
@@ -353,7 +353,7 @@ class ApiClient implements ApiInterface
      * @param $bookId
      * @param $emails
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function addEmails($bookId, $emails)
     {
@@ -376,7 +376,7 @@ class ApiClient implements ApiInterface
      * @param $bookId
      * @param $emails
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function removeEmails($bookId, $emails)
     {
@@ -399,7 +399,7 @@ class ApiClient implements ApiInterface
      * @param $bookId
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function getEmailInfo($bookId, $email)
     {
@@ -417,7 +417,7 @@ class ApiClient implements ApiInterface
      *
      * @param $bookId
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function campaignCost($bookId)
     {
@@ -457,7 +457,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function getCampaignInfo($id)
     {
@@ -475,7 +475,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function campaignStatByCountries($id)
     {
@@ -493,7 +493,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function campaignStatByReferrals($id)
     {
@@ -548,7 +548,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function cancelCampaign($id)
     {
@@ -579,7 +579,7 @@ class ApiClient implements ApiInterface
      * @param $senderName
      * @param $senderEmail
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function addSender($senderName, $senderEmail)
     {
@@ -602,7 +602,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function removeSender($email)
     {
@@ -625,7 +625,7 @@ class ApiClient implements ApiInterface
      * @param $email
      * @param $code
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function activateSender($email, $code)
     {
@@ -647,7 +647,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function getSenderActivationMail($email)
     {
@@ -665,7 +665,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function getEmailGlobalInfo($email)
     {
@@ -683,7 +683,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function removeEmailFromAllBooks($email)
     {
@@ -701,7 +701,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function emailStatByCampaigns($email)
     {
@@ -732,7 +732,7 @@ class ApiClient implements ApiInterface
      * @param $emails - string with emails, separator - ,
      * @param string $comment
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function addToBlackList($emails, $comment = '')
     {
@@ -755,7 +755,7 @@ class ApiClient implements ApiInterface
      *
      * @param $emails - string with emails, separator - ,
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function removeFromBlackList($emails)
     {
@@ -825,7 +825,7 @@ class ApiClient implements ApiInterface
      *
      * @param $id
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function smtpGetEmailInfoById($id)
     {
@@ -843,7 +843,7 @@ class ApiClient implements ApiInterface
      *
      * @param $emails
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function smtpUnsubscribeEmails($emails)
     {
@@ -865,7 +865,7 @@ class ApiClient implements ApiInterface
      *
      * @param $emails
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function smtpRemoveFromUnsubscribe($emails)
     {
@@ -911,7 +911,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function smtpAddDomain($email)
     {
@@ -933,7 +933,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function smtpVerifyDomain($email)
     {
@@ -951,7 +951,7 @@ class ApiClient implements ApiInterface
      *
      * @param $email
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function smtpSendMail($email)
     {
@@ -1103,7 +1103,7 @@ class ApiClient implements ApiInterface
      * @param $taskInfo
      * @param array $additionalParams
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
     public function createPushTask($taskInfo, $additionalParams = array())
     {
