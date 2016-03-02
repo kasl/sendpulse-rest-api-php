@@ -1,0 +1,24 @@
+{
+  "name": "kasl/sendpulse-rest-api-php",
+  "description": "SendPulse REST client library",
+  "keywords": [
+    "sendpulse",
+    "api"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Muratov Roman",
+      "email": "roman.muratov@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "phpunit/phpunit": "~4.0"
+  }
+  "autoload": {
+    "psr-4": {
+      "kasl\\Sendpulse": "src/"
+    }
+  }
+}
