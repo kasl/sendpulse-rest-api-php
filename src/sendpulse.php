@@ -1,5 +1,8 @@
 <?php
 
+namespace Kasl\SendPulse;
+
+
 /*
  * SendPulse REST API PHP Class
  *
@@ -8,7 +11,6 @@
  * https://sendpulse.com/api
  *
  */
-
 class SendpulseApi implements SendpulseApi_Interface
 {
     private $apiUrl = 'https://api.sendpulse.com';

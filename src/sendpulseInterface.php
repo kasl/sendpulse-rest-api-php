@@ -1,5 +1,8 @@
 <?php
 
+namespace Kasl\SendPulse;
+
+
 /*
  * Interface for SendPulse REST API
  *
@@ -8,7 +11,6 @@
  * https://sendpulse.com/api
  *
  */
-
 interface SendpulseApi_Interface
 {
     /**
