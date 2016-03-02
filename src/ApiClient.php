@@ -11,7 +11,7 @@ namespace Kasl\SendPulse;
  * https://sendpulse.com/api
  *
  */
-class SendpulseApi implements SendpulseApiInterface
+class ApiClient implements ApiInterface
 {
     private $apiUrl = 'https://api.sendpulse.com';
 
