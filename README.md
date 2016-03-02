@@ -17,7 +17,7 @@ Through composer.json:
 
 # Usage
 
-See interface class for explorer api [ApiInterface.php](https://github.com/kasl/sendpulse-rest-api-php/blob/master/src/ApiInterface.php)
+See interface class for explore api [ApiInterface.php](https://github.com/kasl/sendpulse-rest-api-php/blob/master/src/ApiInterface.php)
 
 # Example
 
